@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Uploader</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+</head>
+<body>
+    <h1>Image Uploader</h1>
+    <div class="upload_images">
+        <form action="/" method="post" enctype="multipart/form-data">
+            <input type="file" name="uploaded_image1" accept="image/*" required>
+            <input type="file" name="uploaded_image2" accept="image/*" required>
+            <button type="submit">Upload Images</button>
+        </form>
+    </div>
+
+    <div class="uploaded_images">
+        {% if uploaded_image1_url %}
+        <div class="uploaded_image">
+            <h2>Uploaded Image 1</h2>
+            <img src="{{ uploaded_image1_url }}" alt="Uploaded Image 1" width="300" height="200">
+        </div>
+        {% endif %}
+
+        {% if uploaded_image2_url %}
+        <div class="uploaded_image">
+            <h2>Uploaded Image 2</h2>
+            <img src="{{ uploaded_image2_url }}" alt="Uploaded Image 2" width="300" height="250">
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="result">
+        {% if similarity_result %}
+        <p>{{ similarity_result }}</p>
+        {% endif %}
+    </div>
+    
+    
+    <div class="eye_distance_result">
+    {% if eye_distance_result_path %}
+    <h2>Eye Distance Result</h2>
+    <img src="{{ eye_distance_result_path }}" alt="Eye Distance Result" width="300">
+    <p>Distance between Eyes: {{distance}}</p>
+    {% endif %}
+    </div>
+    
+    <div class="confusion_matrix">
+        {% if confusion_matrix_data %}
+        <h2>Confusion Matrix</h2>
+        <table>
+            <tr>
+                <td></td>
+                <td>Predicted Negative</td>
+                <td>Predicted Positive</td>
+            </tr>
+            <tr>
+                <td>Actual Negative</td>
+                <td>{{ confusion_matrix_data.tn }}</td>
+                <td>{{ confusion_matrix_data.fp }}</td>
+            </tr>
+            <tr>
+                <td>Actual Positive</td>
+                <td>{{ confusion_matrix_data.fn }}</td>
+                <td>{{ confusion_matrix_data.tp }}</td>
+            </tr>
+        </table>
+        {% endif %}
+    </div>
+
+
+
+</body>
+</html>
